@@ -1,0 +1,122 @@
+DROP DATABASE IF EXISTS `mrsystem`;
+CREATE DATABASE `mrsystem`;
+USE `mrsystem`;
+
+CREATE TABLE `buffet` (
+  `codigo` int(10) NOT NULL auto_increment,
+  `nome` varchar(50) NOT NULL default '',
+  `tipo` varchar(2) NOT NULL default '',
+  `valor` double NOT NULL default '0',
+  `descricao` varchar(255) NOT NULL default '',
+  PRIMARY KEY  (`codigo`,`tipo`)
+);
+
+INSERT INTO `buffet` VALUES (1,'1º Opção Cocktail Comercial','01',10,'Cocktails, águas, refrigerantes, 6 canapés, 16 tipos de salgados quentes, café.');
+INSERT INTO `buffet` VALUES (2,'2º Opção Cocktail Comercial em Mesa Montada','02',15,'Cocktail, águas, refrigerantes, 6 tipos de canapés, mesas com queijos, frios, pães, frutas secas e frescas, café.');
+INSERT INTO `buffet` VALUES (3,'3º Opção Serviço Americano','03',20,'Cocktails, águas, refrigerantes, 6 tipos de canapés, 16 salgados quentes, 1 prato quente com acompanhamentos, sobremesa, bolo, doces, café na saída.');
+INSERT INTO `buffet` VALUES (4,'4º Opção Serviço Franco Americano 1','04',25,'Cocktails, águas, refrigerantes, 6 tipos de canapés, 10 salgados quentes, cardápio com 2 ou 3 pratos, sobremesa, bolo, doces, café na saída.');
+INSERT INTO `buffet` VALUES (5,'5º Opção Serviço Franco Americano 2','05',30,'Cocktails, águas, refrigerantes, 6 tipos de canapés.\nBuffet montado - com pratos frios e quentes - mesa de sobremesa - bolo - doces - café na saída.');
+INSERT INTO `buffet` VALUES (6,'6º Opção Serviço a Inglesa 1','06',35,'Cocktails, águas, refrigerantes, 6 tipos de canapés, 8 tipos de salgados quentes, cardápio com 2 ou 3 pratos, sobremesa, bolos, doces, café na saída.');
+INSERT INTO `buffet` VALUES (7,'7º Opção Serviço a Inglesa 2','07',40,'Cocktails, águas, refrigerantes, 8 tipos de canapés, mesas montadas com queijos, frios, pães, frutas secas e cardápio com 2, 3 ou 4 pratos, sobremesa, bolo, doces, café na saída.');
+INSERT INTO `buffet` VALUES (8,'8º Opção Serviços Especiais','08',45,'Brunch, café da manhã, chá da tarde conforme o tipo de evento. (social ou comercial)');
+INSERT INTO `buffet` VALUES (9,'9º Opção as nossas sugestões','09',0,'Elaboradas de acordo com o horário e tipo de evento, passando de um cardápio mais simples ao mais sofisticado, de acordo com as mercadorias nacionais ou importadas. Levando-se em conta o perfil do cliente e o orçamento que o próprio deseja.');
+
+CREATE TABLE `cliente` (
+  `codigo` int(10) NOT NULL auto_increment,
+  `nome` varchar(50) NOT NULL default '',
+  `rg` varchar(15) NOT NULL default '',
+  `cpf` varchar(11) NOT NULL default '',
+  `cnpj` varchar(14) NOT NULL default '',
+  `rua` varchar(50) NOT NULL default '',
+  `numero` varchar(10) NOT NULL default '',
+  `bairro` varchar(30) NOT NULL default '',
+  `cidade` varchar(30) NOT NULL default '',
+  `estado` varchar(30) NOT NULL default '',
+  `telefone` varchar(8) NOT NULL default '',
+  `email` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`codigo`)
+);
+
+CREATE TABLE `estado` (
+  `estados_br` varchar(30) NOT NULL default '',
+  PRIMARY KEY  (`estados_br`)
+);
+
+INSERT INTO `estado` VALUES ('Acre (AC)');
+INSERT INTO `estado` VALUES ('Alagoas (AL)');
+INSERT INTO `estado` VALUES ('Amapá (AP)');
+INSERT INTO `estado` VALUES ('Amazonas (AM)');
+INSERT INTO `estado` VALUES ('Bahia (BA)');
+INSERT INTO `estado` VALUES ('Ceará (CE)');
+INSERT INTO `estado` VALUES ('Distrito Federal (DF)');
+INSERT INTO `estado` VALUES ('Espírito Santo (ES)');
+INSERT INTO `estado` VALUES ('Goiás (GO)');
+INSERT INTO `estado` VALUES ('Maranhão (MA)');
+INSERT INTO `estado` VALUES ('Mato Grosso (MT)');
+INSERT INTO `estado` VALUES ('Mato Grosso do Sul (MS)');
+INSERT INTO `estado` VALUES ('Minas Gerais (MG)');
+INSERT INTO `estado` VALUES ('Pará (PA)');
+INSERT INTO `estado` VALUES ('Paraíba (PB)');
+INSERT INTO `estado` VALUES ('Paraná (PR)');
+INSERT INTO `estado` VALUES ('Pernambuco (PE)');
+INSERT INTO `estado` VALUES ('Piauí (PI)');
+INSERT INTO `estado` VALUES ('Rio de Janeiro (RJ)');
+INSERT INTO `estado` VALUES ('Rio Grande do Norte (RN)');
+INSERT INTO `estado` VALUES ('Rio Grande do Sul (RS)');
+INSERT INTO `estado` VALUES ('Rondônia (RO)');
+INSERT INTO `estado` VALUES ('Roraima (RR)');
+INSERT INTO `estado` VALUES ('Santa Catarina (SC)');
+INSERT INTO `estado` VALUES ('São Paulo (SP)');
+INSERT INTO `estado` VALUES ('Sergipe (SE)');
+INSERT INTO `estado` VALUES ('Tocantins (TO)');
+
+CREATE TABLE `funcionario` (
+  `codigo` int(10) NOT NULL auto_increment,
+  `nome` varchar(50) NOT NULL default '',
+  `cargo` varchar(50) NOT NULL default '',
+  `rg` varchar(15) NOT NULL default '',
+  `cpf` varchar(11) NOT NULL default '',
+  `rua` varchar(50) NOT NULL default '',
+  `numero` varchar(10) NOT NULL default '',
+  `bairro` varchar(30) NOT NULL default '',
+  `cidade` varchar(30) NOT NULL default '',
+  `estado` varchar(30) NOT NULL default '',
+  `telefone` varchar(8) NOT NULL default '',
+  `valor` double NOT NULL default '0',
+  `email` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`codigo`)
+);
+
+CREATE TABLE `material` (
+  `codigo` int(10) NOT NULL auto_increment,
+  `nome` varchar(50) NOT NULL default '',
+  `marca` varchar(30) NOT NULL default '',
+  `quantidade` varchar(4) NOT NULL default '',
+  `valor` double NOT NULL default '0',
+  PRIMARY KEY  (`codigo`)
+);
+
+CREATE TABLE `orcamento_evento` (
+  `codigo` int(10) NOT NULL auto_increment,
+  `nome_cliente` varchar(50) NOT NULL default '',
+  `tipo_buffet` varchar(2) NOT NULL default '',
+  `nome_buffet` varchar(50) NOT NULL default '',
+  `qtd_pessoas` int(4) NOT NULL default '0',
+  `qtd_garcons` int(4) NOT NULL default '0',
+  `qtd_segurancas` int(4) NOT NULL default '0',
+  `dia_emissao` int(2) NOT NULL default '0',
+  `mes_emissao` int(2) NOT NULL default '0',
+  `ano_emissao` int(4) NOT NULL default '0',
+  `dia_evento` int(2) NOT NULL default '0',
+  `mes_evento` int(2) NOT NULL default '0',
+  `ano_evento` int(4) NOT NULL default '0',
+  `hora_inicio_evento` int(2) NOT NULL default '0',
+  `minuto_inicio_evento` int(2) NOT NULL default '0',
+  `hora_termino_evento` int(2) NOT NULL default '0',
+  `minuto_termino_evento` int(2) NOT NULL default '0',
+  `local_evento` varchar(50) NOT NULL default '',
+  `valor` double NOT NULL default '0',
+  `horario_evento` varchar(5) NOT NULL default '',
+  `nome_mes` varchar(20) NOT NULL default '',
+  PRIMARY KEY  (`codigo`,`nome_cliente`)
+);
